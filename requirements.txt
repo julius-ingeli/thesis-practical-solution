@@ -1,0 +1,5 @@
+
+fastapi==0.95.0
+uvicorn==0.21.1
+# --- VULNERABILITY 4: OUTDATED LIBRARY (For SCA/Snyk) ---
+requests==2.20.0
