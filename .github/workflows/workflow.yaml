@@ -14,8 +14,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # 2. SAST (Semgrep) - Scanning for SQLi, Cmd Injection, XSS
+      
+      - name: Install Semgrep
+        run: python3 -m pip install semgrep
+
       - name: Semgrep SAST
-        run: semgrep scan --config auto --error src
+        run: semgrep scan --config auto --error .
 
       # 3. SCA (Snyk) - Scanning requirements.txt
       - name: Snyk Open Source Scan
