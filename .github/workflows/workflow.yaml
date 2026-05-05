@@ -14,7 +14,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_CONFIG: .gitleaks.toml
-
+        with:
+          args: --path=src --connfig=gitleaks.toml -v 
       # 2. SAST (Semgrep) - Scanning for SQLi, Cmd Injection, XSS
       
       - name: Install Semgrep

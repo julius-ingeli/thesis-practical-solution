@@ -1,9 +1,26 @@
-
 [extend]
 useDefault = true
+
+
+[[rules]]
+id = "flask-hardcoded-secret-key"
+description = "Flask hardcoded secret key"
+regex = '''(?i)(app\.secret_key|SECRET_KEY|FLASK_SECRET_KEY)\s*=\s*["'][^"']{8,}["']'''
+secretGroup = 0
+
+[[rules]]
+id = "flask-config-secret-key"
+description = "Flask config hardcoded secret key"
+regex = '''(?i)app\.config\[['"]SECRET_KEY['"]\]\s*=\s*["'][^"']{8,}["']'''
+secretGroup = 0
 
 [[allowlists]]
 description = "Ignore generated thesis result files"
 paths = [
-	'''(^|/)results/.*'''
+  '''results/.*''',
+  '''^results/.*''',
+  '''.*/results/.*''',
+  '''.thesisenv/.*''',
+  '''^.thesisenv/.*''',
+  '''*/.thesisenv/.*'''
 ]
