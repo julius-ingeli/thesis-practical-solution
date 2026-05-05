@@ -1,2 +1,4 @@
 # Virtual Environment
 .thesisenv/
+#Gitleaks Config
+.gitleaks.toml

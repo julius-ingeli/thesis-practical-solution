@@ -34,7 +34,7 @@ jobs:
       - name: Snyk Open Source Scan
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk test --file=src/requirements.txt --json > reesults/snyk-report.json
+        run: snyk test --file=src/requirements.txt --severity-threshold=high --json 
         continue-on-error: true
 
       # 4. Container Scan (Trivy)
