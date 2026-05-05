@@ -9,13 +9,30 @@ jobs:
 
       # 1. Secret Scanning (Gitleaks)
       - name: Gitleaks Secret Scan
-        uses: gitleaks/gitleaks-action@v2
-        continue-on-error: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_CONFIG: .gitleaks.toml
-        with:
-          args: --path=src --connfig=gitleaks.toml -v 
+        #uses: gitleaks/gitleaks-action@v2
+        #continue-on-error: true
+        #env:
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #  GITLEAKS_CONFIG: .gitleaks.toml
+        #with:
+        #  args: --path=src --connfig=gitleaks.toml -v 
+        run: |
+          mkdir -p results
+          docker run --rm \
+            -v "$PWD:/repo" \
+            zricethezav/gitleaks:v8.24.3 \
+            detect \
+            --source /repo/src \
+            --no-git \
+            --config /repo/.gitleaks.toml \
+            --redact \
+            -v \
+            --report-format json \
+            --report-path /repo/results/gitleaks-report.json
+
+
+
+
       # 2. SAST (Semgrep) - Scanning for SQLi, Cmd Injection, XSS
       
       - name: Install Semgrep
