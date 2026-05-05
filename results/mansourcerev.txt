@@ -1,0 +1,3 @@
+3:import subprocess
+243:    output = subprocess.check_output(
+246:        stderr=subprocess.STDOUT,

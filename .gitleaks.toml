@@ -1,0 +1,9 @@
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Ignore generated thesis result files"
+paths = [
+  '''^results/.*'''
+]

@@ -1,0 +1,12 @@
+Finding:     AWS_SECRET_KEY = "[1;3;mAKIAIMNO78987EXAMPLE[0m/SECRET/KEY/12345"
+Secret:      [1;3;mAKIAIMNO78987EXAMPLE[0m
+RuleID:      aws-access-token
+Entropy:     3.584184
+File:        src/main.py
+Line:        18
+Commit:      d63ab084735de2e98a9ab2bf9190cc55a4172462
+Author:      julius-ingeli
+Email:       solidsnakesvk@gmail.com
+Date:        2026-04-27T10:38:03Z
+Fingerprint: d63ab084735de2e98a9ab2bf9190cc55a4172462:src/main.py:aws-access-token:18
+
