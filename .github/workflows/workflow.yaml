@@ -43,11 +43,8 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
-          snyk test \
-            --file=src/requirements.txt \
-            --severity-threshold=high \
-            --json > results/snyk-report.json
-
+          snyk test --file=src/requirements.txt  --severity-threshold=high
+ 
       # 4. Container Scan (Trivy)
       - name: Build Docker Image
         run: docker build -f src/Dockerfile -t vuln-store:latest src
