@@ -8,15 +8,12 @@ jobs:
       - uses: actions/checkout@v3
 
       # 1. Secret Scanning (Gitleaks)
-      - name: Gitlleaks Install
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | sh -s -- -b /usr/local/bin
-
-
       - name: Gitleaks Secret Scan
-        run: |
-          gitleaks detect  --source . --config .gitleaks.toml --report-format json --report-path results/gitleaks-report.json -v
+        uses: gitleaks/gitleaks-action@v2
         continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_CONFIG: .gitleaks.toml
 
       # 2. SAST (Semgrep) - Scanning for SQLi, Cmd Injection, XSS
       
@@ -28,14 +25,28 @@ jobs:
         continue-on-error: true
 
       # 3. SCA (Snyk) - Scanning requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r src/requirements.txt
+
       - name: Install Snyk CLI
         run: npm install -g snyk
 
       - name: Snyk Open Source Scan
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk test --file=src/requirements.txt --severity-threshold=high --json 
-        continue-on-error: true
+        run: |
+          snyk test \
+            --file=src/requirements.txt \
+            --severity-threshold=high \
+            --json > results/snyk-report.json
 
       # 4. Container Scan (Trivy)
       - name: Build Docker Image
