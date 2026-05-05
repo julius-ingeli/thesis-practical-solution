@@ -1,0 +1,10 @@
+services:
+  vulnstore:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - API_TOKEN=hardcoded-demo-token
+    volumes:
+      - .:/app

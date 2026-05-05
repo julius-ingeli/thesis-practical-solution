@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}VulnStore - Checkout{% endblock %}
+{% block content %}
+<section class="form-panel">
+  <h1>Checkout</h1>
+  {% if message %}<p class="success">{{ message }}</p>{% endif %}
+  <form method="post">
+    <label for="item">Item</label>
+    <input id="item" name="item" value="Sticker Pack">
+    <label for="address">Shipping address</label>
+    <input id="address" name="address" placeholder="123 Demo Street">
+    <button type="submit">Place order</button>
+  </form>
+</section>
+{% endblock %}

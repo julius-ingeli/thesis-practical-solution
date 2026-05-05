@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VulnStore - Login</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">VulnStore</a>
+    <nav>
+      <a href="/">Shop</a>
+      <a href="/checkout">Checkout</a>
+      <a href="/debug">Debug</a>
+      
+        <a href="/login">Login</a>
+      
+    </nav>
+  </header>
+
+  <main class="page">
+    
+<section class="form-panel">
+  <h1>Login</h1>
+  <p class="error">Invalid username or password</p>
+  <form method="post">
+    <label for="username">Username</label>
+    <input id="username" name="username" value="alice">
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" value="password123">
+    <button type="submit">Sign in</button>
+  </form>
+  <p class="hint">Demo users: alice/password123, bob/qwerty, admin/admin.</p>
+</section>
+
+  </main>
+</body>
+</html>

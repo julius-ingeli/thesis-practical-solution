@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}VulnStore - Shop{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Training target</p>
+    <h1>Dummy webstore for DevSecOps demos</h1>
+    <p>Use this intentionally vulnerable app with SAST, DAST, OWASP ZAP, and Trivy in a controlled local environment.</p>
+  </div>
+  <form class="search" action="{{ url_for('search') }}" method="get">
+    <label for="q">Search products</label>
+    <div>
+      <input id="q" name="q" placeholder="try &lt;script&gt;alert(1)&lt;/script&gt;">
+      <button type="submit">Search</button>
+    </div>
+  </form>
+</section>
+
+<section class="grid">
+  {% for product in products %}
+    <article class="card">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <strong>${{ "%.2f"|format(product.price) }}</strong>
+      <a class="button" href="{{ url_for('product', product_id=product.id) }}">View item</a>
+    </article>
+  {% endfor %}
+</section>
+
+<section class="panel">
+  <h2>Demo utilities</h2>
+  <div class="tool-links">
+    <a href="{{ url_for('ping') }}?host=127.0.0.1">Ping tool</a>
+    <a href="{{ url_for('download') }}?file=sample.txt">Download sample</a>
+    <a href="{{ url_for('fetch_image') }}?url=http://example.com">Fetch URL</a>
+    <a href="{{ url_for('admin') }}">Admin</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}VulnStore - {{ product.name }}{% endblock %}
+{% block content %}
+<section class="product">
+  <div>
+    <p class="eyebrow">Product</p>
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <strong>${{ "%.2f"|format(product.price) }}</strong>
+  </div>
+  <form action="{{ url_for('checkout') }}" method="post">
+    <input type="hidden" name="item" value="{{ product.name }}">
+    <label for="address">Shipping address</label>
+    <input id="address" name="address" placeholder="123 Demo Street">
+    <button type="submit">Buy now</button>
+  </form>
+</section>
+
+<section class="form-panel">
+  <h2>Reviews</h2>
+  <form method="post">
+    <label for="author">Name</label>
+    <input id="author" name="author" placeholder="anonymous">
+    <label for="body">Review</label>
+    <textarea id="body" name="body" rows="4" placeholder="<script>alert(1)</script>"></textarea>
+    <button type="submit">Post review</button>
+  </form>
+  <div class="reviews">
+    {% for review in reviews %}
+      <article>
+        <strong>{{ review.author|safe }}</strong>
+        <p>{{ review.body|safe }}</p>
+      </article>
+    {% else %}
+      <p>No reviews yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

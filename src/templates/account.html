@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}VulnStore - Account{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>{{ account.full_name }}</h1>
+  <p>{{ account.email }}</p>
+  <p>Role: {{ account.role }}</p>
+</section>
+
+<section class="panel">
+  <h2>Orders</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Item</th>
+        <th>Total</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.item }}</td>
+          <td>${{ "%.2f"|format(order.total) }}</td>
+          <td>{{ order.address }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
