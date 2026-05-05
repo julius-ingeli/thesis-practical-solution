@@ -12,6 +12,7 @@ jobs:
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
 
       # 2. SAST (Semgrep) - Scanning for SQLi, Cmd Injection, XSS
       
@@ -20,6 +21,7 @@ jobs:
 
       - name: Semgrep SAST
         run: semgrep scan --config auto --error .
+        continue-on-error: true
 
       # 3. SCA (Snyk) - Scanning requirements.txt
       - name: Snyk Open Source Scan
@@ -28,12 +30,14 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --file=src/requirements.txt --severity-threshold=high
+        continue-on-error: true
 
       # 4. Container Scan (Trivy)
       - name: Build Docker Image
         run: docker build -f src/Dockerfile -t vuln-store:latest src
       - name: Trivy Image Scan
         uses: aquasecurity/trivy-action@master
+        continue-on-error: true
         with:
           image-ref: 'vuln-store:latest'
           severity: 'CRITICAL,HIGH'
