@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}VulnStore - Admin{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Admin users</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in users %}
+        <tr>
+          <td>{{ row.id }}</td>
+          <td>{{ row.username }}</td>
+          <td>{{ row.email }}</td>
+          <td>{{ row.role }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

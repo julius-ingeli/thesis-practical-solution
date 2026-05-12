@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}VulnStore - Shop{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Secure sample app</p>
+    <h1>Dummy webstore for DevSecOps demos</h1>
+    <p>This version keeps the demo shop functionality while enforcing server-side validation, access control, and safer defaults.</p>
+  </div>
+  <form class="search" action="{{ url_for('search') }}" method="get">
+    <label for="q">Search products</label>
+    <div>
+      <input id="q" name="q" placeholder="Search the catalog">
+      <button type="submit">Search</button>
+    </div>
+  </form>
+</section>
+
+<section class="grid">
+  {% for product in products %}
+    <article class="card">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <strong>${{ "%.2f"|format(product.price) }}</strong>
+      <a class="button" href="{{ url_for('product', product_id=product.id) }}">View item</a>
+    </article>
+  {% endfor %}
+</section>
+
+<section class="panel">
+  <h2>Utilities</h2>
+  <div class="tool-links">
+    <a href="{{ url_for('ping') }}?host=example.com">Host lookup</a>
+    <a href="{{ url_for('download') }}?file=sample.txt">Download sample</a>
+    <a href="{{ url_for('fetch_image') }}?url=https://www.example.com">Fetch approved URL</a>
+    {% if user and user.role == "admin" %}
+      <a href="{{ url_for('admin') }}">Admin</a>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

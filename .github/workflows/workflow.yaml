@@ -9,7 +9,7 @@ jobs:
 
       # 1. Secret Scanning (Gitleaks)
       - name: Gitleaks Secret 
-        continue-on-error: true
+        #continue-on-error: true
         #uses: gitleaks/gitleaks-action@v2
 
         #env:
@@ -41,7 +41,7 @@ jobs:
 
       - name: Semgrep SAST
         run: semgrep scan --config auto --error .
-        continue-on-error: true
+        #continue-on-error: true
 
       # 3. SCA (Snyk) - Scanning requirements.txt
       - name: Set up Python
@@ -58,7 +58,7 @@ jobs:
         run: npm install -g snyk
 
       - name: Snyk Open Source Scan
-        continue-on-error: true
+        #continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
@@ -69,7 +69,7 @@ jobs:
         run: docker build -f src/Dockerfile -t vuln-store:latest src
       - name: Trivy Image Scan
         uses: aquasecurity/trivy-action@master
-        continue-on-error: true
+        #continue-on-error: true
         with:
           image-ref: 'vuln-store:latest'
           severity: 'CRITICAL,HIGH'

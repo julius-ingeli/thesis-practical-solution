@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}VulnStore - {{ product.name }}{% endblock %}
+{% block content %}
+<section class="product">
+  <div>
+    <p class="eyebrow">Product</p>
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <strong>${{ "%.2f"|format(product.price) }}</strong>
+  </div>
+  <form action="{{ url_for('checkout') }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="product_id" value="{{ product.id }}">
+    <label for="address">Shipping address</label>
+    <input id="address" name="address" placeholder="123 Demo Street" required>
+    <button type="submit">Buy now</button>
+  </form>
+</section>
+
+<section class="form-panel">
+  <h2>Reviews</h2>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label for="author">Name</label>
+    <input id="author" name="author" placeholder="anonymous">
+    <label for="body">Review</label>
+    <textarea id="body" name="body" rows="4" placeholder="Share your experience" required></textarea>
+    <button type="submit">Post review</button>
+  </form>
+  <div class="reviews">
+    {% for review in reviews %}
+      <article>
+        <strong>{{ review.author }}</strong>
+        <p>{{ review.body }}</p>
+      </article>
+    {% else %}
+      <p>No reviews yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

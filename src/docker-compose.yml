@@ -4,7 +4,5 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - FLASK_ENV=development
-      - API_TOKEN=hardcoded-demo-token
-    volumes:
-      - .:/app
+      FLASK_SECRET_KEY: change-me-before-production
+      SESSION_COOKIE_SECURE: "0"

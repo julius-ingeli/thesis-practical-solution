@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}VulnStore - Checkout{% endblock %}
+{% block content %}
+<section class="form-panel">
+  <h1>Checkout</h1>
+  {% if message %}<p class="success">{{ message }}</p>{% endif %}
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label for="product_id">Item</label>
+    <select id="product_id" name="product_id">
+      {% for product in products %}
+        <option value="{{ product.id }}">{{ product.name }} (${{ "%.2f"|format(product.price) }})</option>
+      {% endfor %}
+    </select>
+    <label for="address">Shipping address</label>
+    <input id="address" name="address" placeholder="123 Demo Street" required>
+    <button type="submit">Place order</button>
+  </form>
+</section>
+{% endblock %}
