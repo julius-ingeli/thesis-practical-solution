@@ -40,7 +40,7 @@ jobs:
         run: python3 -m pip install semgrep
 
       - name: Semgrep SAST
-        run: semgrep scan --config auto --error .
+        run: semgrep scan --config auto --error . --severity=CRITICAL
         #continue-on-error: true
 
       # 3. SCA (Snyk) - Scanning requirements.txt
